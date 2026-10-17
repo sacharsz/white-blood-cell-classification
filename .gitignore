@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.DS_Store
+.ipynb_checkpoints/
+.venv/
+train/
+test/
+*.csv
+outputs/
+*.pth
+*.pkl
