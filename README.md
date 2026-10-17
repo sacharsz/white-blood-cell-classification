@@ -5,6 +5,8 @@ Classification of white blood cells from microscope images into 13 classes, for 
 The final pipeline fine-tunes ConvNeXt-Tiny, then trains XGBoost on its embeddings, with 5-fold stratified cross-validation.
 On the validation folds, the fine-tuned network reaches a macro-F1 of **0.726 ± 0.014** and XGBoost on its embeddings **0.694 ± 0.038**, against 0.429 for the best classifier on handcrafted features.
 
+**[Read the report](report/report_fr.pdf)** (8 pages, in French)
+
 ## The problem
 
 The training set has 28,901 images and is very imbalanced: from 13,015 images of segmented neutrophils (SNE) down to 11 images of prolymphocytes (PLY).
