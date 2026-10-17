@@ -3,7 +3,8 @@
 Classification of white blood cells from microscope images into 13 classes, for the IMA205 Kaggle challenge at Télécom Paris (April 2026).
 
 The final pipeline fine-tunes ConvNeXt-Tiny, then trains XGBoost on its embeddings, with 5-fold stratified cross-validation.
-On the validation folds, the fine-tuned network reaches a macro-F1 of **0.726 ± 0.014** and XGBoost on its embeddings **0.694 ± 0.038**, against 0.429 for the best classifier on handcrafted features.
+On the validation folds, the fine-tuned network reaches a macro-F1 of **0.726 ± 0.014** and XGBoost on its embeddings **0.6935 ± 0.0375**, against 0.429 for the best classifier on handcrafted features.
+The final submission, an ensemble of the 5 folds, scored **0.696** on the official Kaggle leaderboard, the best of all submissions.
 
 **[Read the report](report/report_fr.pdf)** (8 pages, in French)
 
@@ -40,7 +41,7 @@ Each change was tested on the same 80/20 split, and some were also submitted to 
 | V5 | Class-balanced sampler (better than a weighted loss, and than both combined) | 0.635 | |
 | V6 | Remove the automatic cell crop: the network uses the context around the cell | 0.680 | |
 | V7 | Weight decay 5e-4 | 0.688 | 0.653 |
-| V9 | Squeeze-and-Excitation attention (SE-ResNet-18) | 0.650 | **0.674** |
+| V9 | Squeeze-and-Excitation attention (SE-ResNet-18) | 0.650 | 0.674 |
 | V10 | Cosine classification head | 0.696 | 0.629 |
 | V11 | ConvNeXt-Tiny backbone | 0.676 | |
 | V11 | ConvNeXt-Tiny embeddings + XGBoost | 0.673 | |
@@ -69,7 +70,7 @@ The 5 folds took 231 minutes on a single GPU.
 | | Mean macro-F1 | Std | Min | Max |
 |---|---:|---:|---:|---:|
 | ConvNeXt-Tiny (fine-tuned) | 0.726 | 0.014 | 0.705 | 0.744 |
-| XGBoost on its embeddings | 0.694 | 0.038 | 0.662 | 0.757 |
+| XGBoost on its embeddings | 0.6935 | 0.0375 | 0.662 | 0.757 |
 
 The fine-tuned network alone is better and more stable than XGBoost on its embeddings.
 One possible reason is that XGBoost is trained on the embeddings of the images the network was just fine-tuned on, which are better separated than those of unseen images.
@@ -80,7 +81,7 @@ PLY is never predicted on the test set.
 
 **Limitations.**
 On each fold, the validation set is also used for early stopping of the network and of XGBoost, so these scores are slightly optimistic.
-The best leaderboard score during the challenge was 0.674 (V9); the final pipeline was not scored on the leaderboard.
+The final submission scored 0.696 on the official Kaggle leaderboard, against 0.674 for the best earlier submission (V9).
 
 ## Usage
 
